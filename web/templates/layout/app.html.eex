@@ -13,8 +13,16 @@
 
   <body>
     <div class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <div class="header">
+        <h3>Social</h3>
+
+        <ol class="breadcrumb text-right"</ol>
+          <li><%= link "Posts", to: post_path(@conn, :index) %></li>
+        </ol>
+
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      </div> <!-- /header -->
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
