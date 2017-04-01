@@ -1,20 +1,20 @@
 <h1>New Post</h1>
 
-<%= if @changeset.action do %>
-  <div class="alert-alert-danger">
-    <p>Oops! Something went wrong. Please check the errors below.</p>
-  </div>
-<% end %>
-
 <%= form_for @changeset, post_path(@conn, :create), fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops! Something went wrong. Please check the errors below.</p>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= text_input f, :creator, placeholder: "Creator", class: "form-control" %>
-    <%= error_tag f, :name %>
+    <%= error_tag f, :creator %>
   </div>
 
   <div class="form-group">
     <%= textarea f, :message, placeholder: "Message", class: "form-control" %>
-    <%= error_tag f, :creator %>
+    <%= error_tag f, :message %>
   </div>
 
   <%= submit "Create Post", class: "btn-btn-primary" %>

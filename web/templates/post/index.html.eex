@@ -1,6 +1,6 @@
 <h1>Posts</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Creator</th>
     <th>Message</th>
@@ -13,8 +13,13 @@
       </td>
 
       <td>
-      <%= post.message %>
+        <%= post.message %>
       </td>
+
+      <td>
+        <%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
     </tr>
   <% end %>
 <table>
+
+<%= link "New Post", to: post_path(@conn, :new) %>
