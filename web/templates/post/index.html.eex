@@ -1,0 +1,20 @@
+<h1>Posts</h1>
+
+<table>
+  <tr>
+    <th>Creator</th>
+    <th>Message</th>
+  </tr>
+
+  <%= for post <- @posts do %>
+    <tr>
+      <td>
+        <%= post.creator %>
+      </td>
+
+      <td>
+      <%= post.message %>
+      </td>
+    </tr>
+  <% end %>
+<table>
