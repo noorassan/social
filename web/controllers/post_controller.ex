@@ -19,7 +19,7 @@ defmodule Social.PostController do
         |>put_flash(:info, "Post created!")
         |>redirect(to: post_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render conn, "new.html", changeset: changeset
     end
   end
 

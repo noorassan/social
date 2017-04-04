@@ -2,22 +2,18 @@
 
 <table class="table">
   <tr>
-    <th>Creator</th>
+    <th>Username</th>
     <th>Message</th>
   </tr>
 
   <%= for post <- @posts do %>
     <tr>
-      <td>
-        <%= post.creator %>
-      </td>
+      <td><%= Repo.get_by(Social.User, id: post.user_id).username %></td>
 
-      <td>
-        <%= post.message %>
-      </td>
+      <td><%= post.message %></td>
 
-      <td>
-        <%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      <td><%= link "Delete", to: post_path(@conn, :delete, post), method: :delete,
+              data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></td>
     </tr>
   <% end %>
 <table>

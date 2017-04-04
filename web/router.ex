@@ -18,6 +18,7 @@ defmodule Social.Router do
 
     get "/", PageController, :index
     resources "/post", PostController
+    resources "/user", UserController
   end
 
   # Other scopes may use custom stacks.
