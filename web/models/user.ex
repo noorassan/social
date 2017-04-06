@@ -19,7 +19,7 @@ defmodule Social.User do
   def changeset(struct, params \\ %{}) do
     struct
     |>cast(params, [:username, :email])
-    |>validate_required([:username, :email])
+    |>validate_required([:username])
     |>unique_constraint(:username)
   end
 

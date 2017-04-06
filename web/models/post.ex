@@ -7,7 +7,7 @@ defmodule Social.Post do
   @required_params [:message, :user_id]
 
   schema "posts" do
-    field :message, :string
+    field :message, :string, null: false
     belongs_to :user, Social.User
 
     timestamps()
