@@ -1,9 +1,14 @@
 defmodule Social.UserController do
   use Social.Web, :controller
   alias Social.User
+  plug :authenticate when action in [:index, :show]
 
   def index(conn, _params) do
     render conn, "index.html", users: Repo.all(User)
+  end
+
+  def show(conn, %{"id" => id}) do
+    render conn, "show.html", user: Repo.get(User, id)
   end
 
   def new(conn, _params) do
@@ -17,21 +22,20 @@ defmodule Social.UserController do
     case Repo.insert(changeset) do
       {:ok, _user} ->
         conn
-        |>put_flash(:info, "User successfully created")
-        |>redirect(to: user_path(conn, :index))
+        |> Rumbl.Auth.login(user)
+        |> put_flash(:info, "User successfully created")
+        |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    Repo.delete_all(from p in Social.Post, where: p.user_id == ^id)
-
     Repo.get!(User, id)
-    |>Repo.delete!()
+    |> Repo.delete!()
 
     conn
-    |>put_flash(:info, "User successfully deleted")
-    |>redirect(to: user_path(conn, :index))
+    |> put_flash(:info, "User successfully deleted")
+    |> redirect(to: user_path(conn, :index))
   end
 end
