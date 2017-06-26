@@ -7,7 +7,7 @@ defmodule Social.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug: Social.Auth, repo: Social.Repo
+    plug Social.Auth, repo: Social.Repo
   end
 
   pipeline :api do
@@ -20,6 +20,7 @@ defmodule Social.Router do
     get "/", PageController, :index
     resources "/post", PostController
     resources "/user", UserController
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.

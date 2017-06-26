@@ -1,7 +1,8 @@
 defmodule Social.UserController do
   use Social.Web, :controller
   alias Social.User
-  plug :authenticate when action in [:index, :show]
+  import Social.Auth
+  plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
     render conn, "index.html", users: Repo.all(User)
@@ -20,9 +21,9 @@ defmodule Social.UserController do
     changeset = User.registration_changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
         conn
-        |> Rumbl.Auth.login(user)
+        |> Social.Auth.login(user)
         |> put_flash(:info, "User successfully created")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
