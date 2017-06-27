@@ -22,5 +22,5 @@
     <%= error_tag f, :email %>
   </div>
 
-  <%= submit "Create User", class: "btn-btn-primary" %>
+  <%= submit "Create User", class: "btn btn-primary" %>
 <% end %>

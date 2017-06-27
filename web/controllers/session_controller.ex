@@ -17,4 +17,10 @@ defmodule Social.SessionController do
         |> render("new.html")
     end
   end
+  
+  def delete(conn, _params) do
+    conn
+    |> Social.Auth.logout()
+    |> redirect(to: page_path(conn, :index))
+  end
 end
