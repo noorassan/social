@@ -1,10 +1,6 @@
 defmodule Social.User do
   use Social.Web, :model
 
-  @moduledoc """
-  A user consists of a username, hashed password, and an email
-  """
-
   schema "users" do
     field :username, :string, null: false
     field :virtual_password, :string, virtual: true
@@ -12,6 +8,7 @@ defmodule Social.User do
     field :email, :string
 
     has_many :posts, Social.Post
+    has_many :friends, Social.Friends
 
     timestamps()
   end
@@ -40,5 +37,12 @@ defmodule Social.User do
         changeset
     end
   end
-end
 
+  def find_friends(query, user_id) do
+    from usr in query,
+      where: usr.id == ^user_id,
+      join: f in Social.Friends, on: f.user_id == usr.id,
+      join: f_usr in Social.User, on: f.friend_id == f_usr.id,
+      preload: [friends: {f, friend: f_usr}]
+  end
+end

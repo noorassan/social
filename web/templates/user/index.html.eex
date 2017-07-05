@@ -10,7 +10,7 @@
   <%= for user <- @users do %>
     <tr>
       <td><%= user.id %></td>
-      <td><%= user.username %></td>
+      <td><%= link user.username, to: user_path(@conn, :show, user.id) %></td>
       <td><%= user.email %></td>
 
       <td><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete,

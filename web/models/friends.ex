@@ -4,11 +4,11 @@ defmodule Social.Friends do
   @doc """
   A set of Friends consists of two user_ids
   """
-  @required_params [:user_one_id, :user_two_id]
+  @required_params [:user_id, :friend_id]
 
   schema "friends" do
-    belongs_to :user_one, Social.User
-    belongs_to :user_two, Social.User
+    belongs_to :user, Social.User
+    belongs_to :friend, Social.User
 
     timestamps()
   end
@@ -17,7 +17,7 @@ defmodule Social.Friends do
     struct
     |>cast(params, @required_params)
     |>validate_required(@required_params)
-    |>foreign_key_constraint(:user_one_id)
-    |>foreign_key_constraint(:user_two_id)
+    |>foreign_key_constraint(:user_id)
+    |>foreign_key_constraint(:friend_id)
   end
 end

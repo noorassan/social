@@ -9,7 +9,8 @@ defmodule Social.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    render conn, "show.html", user: Repo.get(User, id)
+    user = Repo.one(User.find_friends(User, id))
+    render conn, "show.html", user: user
   end
 
   def new(conn, _params) do
