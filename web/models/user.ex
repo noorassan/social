@@ -38,7 +38,7 @@ defmodule Social.User do
     end
   end
 
-  def find_friends(query, user_id) do
+  def preload_friends(query, user_id) do
     from usr in query,
       where: usr.id == ^user_id,
       join: f in Social.Friends, on: f.user_id == usr.id,
