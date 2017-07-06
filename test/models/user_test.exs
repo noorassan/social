@@ -17,12 +17,12 @@ defmodule Social.UserTest do
 
   test "changeset with invalid_attrs" do
     changeset = User.changeset(%User{}, @invalid_attrs)
-    assert !changeset.valid?
+    refute changeset.valid?
   end
   
   test "registration changeset with virtual_password < 6 character" do
     changeset = User.registration_changeset(%User{}, Map.put(@valid_attrs, :virtual_password, "pass"))
-    assert !changeset.valid?
+    refute changeset.valid?
   end
 
   test "registration changeset with valid_attrs hashes virtual_password" do

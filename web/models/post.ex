@@ -1,9 +1,6 @@
 defmodule Social.Post do
   use Social.Web, :model
 
-  @moduledoc """
-  A post consists of a reference to the user that made it and the text it contains
-  """
   @required_params [:message, :user_id]
 
   schema "posts" do
