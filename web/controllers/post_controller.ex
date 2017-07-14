@@ -12,10 +12,10 @@ defmodule Social.PostController do
     render conn, "new.html", changeset: Post.changeset(%Post{})
   end
 
-  def create(conn, %{"post" => message}) do
+  def create(conn, %{"post" => post_params}) do
     user_id = get_session(conn, :user_id)
 
-    changeset = Post.changeset(%Post{}, Map.merge(message, %{"user_id" => user_id}))
+    changeset = Post.changeset(%Post{}, Map.merge(post_params, %{"user_id" => user_id}))
 
     case Repo.insert(changeset) do
       {:ok, _post} ->
