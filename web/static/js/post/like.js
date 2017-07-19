@@ -15,9 +15,9 @@ function toggleLike(button) {
 			url: "/api/like/" + like_id,
 			method: "DELETE",
 			success: function(data) {
-				console.log(data);
 				button.text("Like");
-				button.attr("data-post-id", data);
+				console.log(data)
+				button.data("post-id", data);
 			}
 		})
 	} else {
@@ -28,10 +28,10 @@ function toggleLike(button) {
 			method: "POST",
 			data:		{"like": {"post_id": post_id}},
 			success: function(data) {
-				console.log(data);
+				console.log("data after like is " + data);
 				button.text("Unlike");
-				button.attr("data-like-id", data);
-				console.log(button.attr("data-like-id"));
+				button.data("like-id", data);
+				console.log("like-id after like is " + button.data("like-id"));
 			}
 		})
 	}
