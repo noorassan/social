@@ -16,5 +16,6 @@ defmodule Social.Like do
     |> validate_required(@required_params)
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:post_id)
+    |> unique_constraint(:like_unique_constraint, name: :like_uniqueness)
   end
 end
