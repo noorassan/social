@@ -11,8 +11,15 @@
       <td><%= Repo.get_by(Social.User, id: post.user_id).username %></td>
 
       <td><%= post.message %></td>
+      
+      <%= if(post.likes == []) do %>
+        <td><button class="btn btn-primary btn-xs" data-post-id="<%=post.id%>">Like</button></td>
+      <% else %>
+        <% [like] = post.likes %>
+        <td><button class="btn btn-primary btn-xs" data-like-id="<%=like.id%>">Unlike</button></td>
+      <% end %>
 
-      <td><%= link "Delete", to: post_path(@conn, :delete, post), method: :delete,
+      <td><%= button "Delete", to: post_path(@conn, :delete, post), method: :delete,
               data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></td>
     </tr>
   <% end %>

@@ -5,7 +5,9 @@ defmodule Social.PostController do
   plug :authenticate_user
 
   def index(conn, _params) do
-    render conn, "index.html", posts: Repo.all(Post)
+    posts = Post.preload_likes_by_user_id(Post, get_session(conn, :user_id))
+      |> Repo.all()
+    render conn, "index.html", posts: posts
   end
 
   def new(conn, _params) do
@@ -20,7 +22,7 @@ defmodule Social.PostController do
     case Repo.insert(changeset) do
       {:ok, _post} ->
         conn
-        |>put_flash(:info, "Post created!")
+        |>put_flash(:info, "Post successfully created!")
         |>redirect(to: post_path(conn, :index))
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset

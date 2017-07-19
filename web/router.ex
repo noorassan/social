@@ -12,6 +12,8 @@ defmodule Social.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug Social.Auth, repo: Social.Repo
   end
 
   scope "/", Social do
@@ -23,8 +25,9 @@ defmodule Social.Router do
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Social do
-  #   pipe_through :api
-  # end
+  scope "/api", Social do
+    pipe_through :api
+    
+    resources "/like", LikeController, only: [:create, :delete]
+   end
 end
