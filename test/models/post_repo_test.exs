@@ -9,7 +9,7 @@ defmodule Social.PostRepoTest do
     assert {:ok, _post} = Repo.insert(changeset)    
   end
 
-  test "insert invalid changest" do
+  test "insert invalid changeset" do
     changeset = Post.changeset(%Post{}, %{})
     assert {:error, _changeset} = Repo.insert(changeset)
   end
