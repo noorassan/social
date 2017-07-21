@@ -15,9 +15,18 @@ defmodule Social.Friends do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |>cast(params, @required_params)
-    |>validate_required(@required_params)
-    |>foreign_key_constraint(:user_id)
-    |>foreign_key_constraint(:friend_id)
+    |> cast(params, @required_params)
+    |> validate_required(@required_params)
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:friend_id)
+    |> _ensure_a_user_cannot_friend_itself()
+  end
+
+  defp _ensure_a_user_cannot_friend_itself(changeset) do
+    if(changeset.changes.user_id != changset.changse.friend_id) do
+      changeset
+    else
+      add_error(changeset, :user_id_and_friend_id, "can't be be equal")
+    end
   end
 end

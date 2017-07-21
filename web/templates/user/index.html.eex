@@ -13,6 +13,13 @@
       <td><%= link user.username, to: user_path(@conn, :show, user.id) %></td>
       <td><%= user.email %></td>
 
+      <%= if(user.friends == []) do %>
+        <td><button class="btn btn-primary btn-xs" data-user-id="<%=user.id%>">Friend</button></td>
+      <% else %>
+        <% [friends] = user.friends %>
+        <td><button class="btn btn-primary btn-xs" data-friends-id="<%=friends.id%>">Unfriend</button></td>
+      <% end %>
+
       <td><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete,
               data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></td>
     </tr>
