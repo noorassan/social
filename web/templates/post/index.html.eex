@@ -13,10 +13,10 @@
       <td><%= post.message %></td>
       
       <%= if(post.likes == []) do %>
-        <td><button class="btn btn-primary btn-xs" data-post-id="<%=post.id%>">Like</button></td>
+        <td><button id="like-button" class="btn btn-primary btn-xs" data-post-id="<%=post.id%>">Like</button></td>
       <% else %>
         <% [like] = post.likes %>
-        <td><button class="btn btn-primary btn-xs" data-like-id="<%=like.id%>">Unlike</button></td>
+        <td><button id="like-button" class="btn btn-primary btn-xs" data-like-id="<%=like.id%>">Unlike</button></td>
       <% end %>
 
       <td><%= button "Delete", to: post_path(@conn, :delete, post), method: :delete,

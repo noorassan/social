@@ -20,10 +20,11 @@ defmodule Social.Friends do
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:friend_id)
     |> _ensure_a_user_cannot_friend_itself()
+    |> unique_constraint(:friends_unique_constraint, name: :friends_uniqueness)
   end
 
   defp _ensure_a_user_cannot_friend_itself(changeset) do
-    if(changeset.changes.user_id != changset.changse.friend_id) do
+    if(changeset.changes.user_id != changeset.changes.friend_id) do
       changeset
     else
       add_error(changeset, :user_id_and_friend_id, "can't be be equal")

@@ -29,5 +29,6 @@ defmodule Social.Router do
     pipe_through :api
     
     resources "/like", LikeController, only: [:create, :delete]
+    resources "/friends", FriendsController, only: [:create, :delete]
    end
 end

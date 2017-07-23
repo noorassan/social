@@ -48,7 +48,7 @@ defmodule Social.User do
 
   def preload_friends_by_user_id(query, user_id) do
     from usr in query,
-      left_join: f in Social.Friends, on: f.user_id == ^user_id && f.friend_id == usr.id,
+      left_join: f in Social.Friends, on: f.user_id == ^user_id and f.friend_id == usr.id,
       preload: [friends: f]
   end
 end
