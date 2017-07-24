@@ -22,6 +22,7 @@ import "phoenix_html"
 export var App = {
 	run: function(){
 		require('web/static/js/post/like.js');
+		require('web/static/js/user/friends.js');
 	}
 }
 App.run();

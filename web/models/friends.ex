@@ -30,4 +30,10 @@ defmodule Social.Friends do
       add_error(changeset, :user_id_and_friend_id, "can't be be equal")
     end
   end
+
+  def get_paired_friends(query, friends) do
+    from f in query,
+      where: f.user_id == ^friends.friend_id,
+      where: f.friend_id == ^friends.user_id
+  end
 end

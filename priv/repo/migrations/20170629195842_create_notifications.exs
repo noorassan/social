@@ -5,6 +5,7 @@ defmodule Social.Repo.Migrations.CreateNotifications do
     create table(:notifications) do
       add :user_id, references(:users, on_delete: :delete_all)
       add :message, :string
+      add :seen, :boolean
       
       timestamps()
     end
