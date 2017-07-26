@@ -15,19 +15,19 @@ function toggleFriend(button) {
 			url: "/api/friends/" + friends_id,
 			method: "DELETE",
 			success: function(data) {
+				button.text("Friend");
 				button.data("user-id", data);
 			}
 		})
 	} else {
-		let friend_id = button.data("friend-id");
-
+		let friend_id = button.data("user-id");
 		$.ajax({
 			url:  	"/api/friends",
 			method: "POST",
 			data:		{"friend_id": friend_id},
 			success: function(data) {
 				button.text("Unfriend");
-				button.data("friend-id", data);
+				button.data("friends-id", data);
 			}
 		})
 	}

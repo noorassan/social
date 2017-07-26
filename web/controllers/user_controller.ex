@@ -5,9 +5,10 @@ defmodule Social.UserController do
   plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
-    users = User.preload_friends_by_user_id(User, get_session(conn, :user_id))
+    user_id = get_session(conn, :user_id)
+    users = User.preload_friends_by_user_id(User, user_id)
       |> Repo.all()
-    render conn, "index.html", users: users
+    render conn, "index.html", users: users, user_id: user_id
   end
 
   def show(conn, %{"id" => id}) do

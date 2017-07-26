@@ -32,8 +32,11 @@ defmodule Social.Friends do
   end
 
   def get_paired_friends(query, friends) do
+    friend_id = friends.friend_id
+    user_id = friends.user_id
+
     from f in query,
-      where: f.user_id == ^friends.friend_id,
-      where: f.friend_id == ^friends.user_id
+      where: f.user_id == ^friend_id,
+      where: f.friend_id == ^user_id
   end
 end
