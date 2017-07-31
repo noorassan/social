@@ -25,8 +25,8 @@ defmodule Social.PostController do
 
     extra = %{inserted_at: Ecto.DateTime.utc, updated_at: Ecto.DateTime.utc}
     fields = Notification.__schema__(:fields) -- [:id]
-    structs = Enum.map(friends, fn(friend) -> 
-      %Notification{message: "Your friend, #{username}, posted!", user_id: friend.id} 
+    structs = Enum.map(friends, fn(friends) -> 
+      %Notification{message: "Your friend, #{username}, posted!", user_id: friends.friend_id} 
         |> Map.take(fields)
         |> Map.merge(extra) 
       end)
