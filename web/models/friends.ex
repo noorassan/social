@@ -39,4 +39,9 @@ defmodule Social.Friends do
       where: f.user_id == ^friend_id,
       where: f.friend_id == ^user_id
   end
+
+  def get_users_friends(query, user_id) do
+    from f in query,
+      where: f.user_id == ^user_id
+  end
 end

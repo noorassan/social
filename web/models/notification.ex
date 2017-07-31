@@ -6,6 +6,8 @@ defmodule Social.Notification do
   schema "notifications" do
     field :message, :string, null: false
     belongs_to :user, Social.User
+
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

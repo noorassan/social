@@ -1,6 +1,7 @@
 defmodule Social.PostController do
   use Social.Web, :controller
-  alias Social.Post
+  alias Social.{Post, Friends, Notification}
+  alias Ecto.Multi
   import Social.Auth
   plug :authenticate_user
 
@@ -16,16 +17,21 @@ defmodule Social.PostController do
 
   def create(conn, %{"post" => post_params}) do
     user_id = get_session(conn, :user_id)
+    friends = Friends.get_users_friends(Friends, user_id) |> Repo.all
 
-    changeset = Post.changeset(%Post{}, Map.merge(post_params, %{"user_id" => user_id}))
+    multi = Multi.new
+      |> Multi.insert(Post.changeset(%Post{}, Map.merge(post_params, %{"user_id" => user_id})))
 
-    case Repo.insert(changeset) do
-      {:ok, _post} ->
+    multi = multi
+      |> Multi.insert_all(
+
+    case Repo.transaction(multi) do
+      {:ok, %{post: _post, notifications: _notifications}} ->
         conn
         |>put_flash(:info, "Post successfully created!")
         |>redirect(to: post_path(conn, :index))
-      {:error, changeset} ->
-        render conn, "new.html", changeset: changeset
+      {:error, _failed_operation, _failed_value, _changes_so_far} ->
+        render conn, "new.html", changeset: _failed_operation
     end
   end
 
