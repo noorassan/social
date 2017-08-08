@@ -22,7 +22,8 @@ defmodule Social.Router do
     get "/", PageController, :index
     resources "/post", PostController
     resources "/user", UserController
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/session", SessionController, only: [:new, :create, :delete]
+    resources "/notifications", NotificationsController, only: [:delete]
   end
 
   scope "/api", Social do
