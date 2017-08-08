@@ -1,8 +1,10 @@
-<div class="jumbotron">
-  <h2>Welcome to Social</h2>
-  <p class="lead">Get in touch with friends and meet new people!</p>
-
-  <h3>Notifications</h3>
+<%= unless(@conn.assigns.current_user) do %>
+  <div class="jumbotron">
+    <h2>Welcome to Social</h2>
+    <p class="lead">Get in touch with friends and meet new people!</p>
+  </div>
+<% else %>
+  <h4>Notifications</h4>
   <table class="table">
     <tr>
       <th>ID</th>
@@ -18,4 +20,4 @@
       </tr>
     <% end %>
   </table>
-</div>
+<% end %>

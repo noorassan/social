@@ -23,7 +23,7 @@ defmodule Social.Router do
     resources "/post", PostController
     resources "/user", UserController
     resources "/session", SessionController, only: [:new, :create, :delete]
-    resources "/notifications", NotificationsController, only: [:delete]
+    resources "/notification", NotificationController, only: [:delete]
   end
 
   scope "/api", Social do

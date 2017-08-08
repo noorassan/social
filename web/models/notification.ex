@@ -17,7 +17,7 @@ defmodule Social.Notification do
     |> foreign_key_constraint(:user_id)
   end
 
-  def get_notifications_by_user_id(query, user_id) do
+  def get_by_user_id(query, user_id) do
     from n in query,
       where: n.user_id == ^user_id
   end
