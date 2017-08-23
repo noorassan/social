@@ -6,6 +6,7 @@ defmodule Social.User do
     field :virtual_password, :string, virtual: true
     field :password, :string, null: false
     field :email, :string
+    field :profile_picture_path, :string, null: false
 
     has_many :posts, Social.Post
     has_many :friends, Social.Friends
@@ -15,8 +16,8 @@ defmodule Social.User do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |>cast(params, [:username, :email])
-    |>validate_required([:username])
+    |>cast(params, [:username, :email, :profile_picture_path])
+    |>validate_required([:username, :profile_picture_path])
     |>unique_constraint(:username)
   end
 
