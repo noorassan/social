@@ -1,5 +1,6 @@
 <h1>Users</h1>
 
+<img src= <%= static_path(@conn, @user.profile_picture_path) %> ></img>
 <div>Username: <%= @user.username %></div>
 <div>Email Address: <%= @user.email %></div>
 <br></br>

@@ -25,7 +25,7 @@ defmodule Social.UserController do
     profile_picture_path = 
     if upload = user_params["photo"] do
       extension = Path.extname(upload.filename)
-      path = "~/Pictures/social_pictures/#{Map.get(user_params, "username")}-profile#{extension}"
+      path = "/images/profile_pictures/#{Map.get(user_params, "username")}-profile#{extension}"
       
       File.cp(upload.path, path)
       
