@@ -39,6 +39,4 @@ defmodule Social.Endpoint do
     signing_salt: "vRTniM14"
 
   plug Social.Router
-
-  plug Plug.Static, at: "/uploads", from: "/images/profile_pictures"
 end

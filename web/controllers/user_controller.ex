@@ -22,17 +22,14 @@ defmodule Social.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    profile_picture_path = 
     if upload = user_params["photo"] do
       extension = Path.extname(upload.filename)
-      path = "/images/profile_pictures/#{Map.get(user_params, "username")}-profile#{extension}"
+      path = "web/static/assets/images/profile_pictures/#{Map.get(user_params, "username")}-profile#{extension}"
       
       File.cp(upload.path, path)
-      
-      path
     end
     
-    changeset = User.registration_changeset(%User{}, Map.merge(user_params, %{"profile_picture_path" => profile_picture_path}))
+    changeset = User.registration_changeset(%User{}, user_params)
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
@@ -48,7 +45,7 @@ defmodule Social.UserController do
     user = Repo.get!(User, id)
     Repo.delete(user)
     
-    File.rm(user.profile_picture_path)
+    File.rm("web/static/assets/images/profile_pictures/#{user.username}-profile.jpg")
     conn
     |> put_flash(:info, "User successfully deleted")
     |> redirect(to: user_path(conn, :index))
